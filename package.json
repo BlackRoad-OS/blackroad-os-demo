@@ -5,5 +5,9 @@
   "dependencies": {
     "@primer/css": "17.0.1"
   },
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node demo.js"
+  },
   "license": "MIT"
 }
