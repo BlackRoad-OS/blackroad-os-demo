@@ -1,8 +1,41 @@
-![Auto Assign](https://github.com/BlackRoad-OS/demo-repository/actions/workflows/auto-assign.yml/badge.svg)
+# BlackRoad OS Demo
 
-![Proof HTML](https://github.com/BlackRoad-OS/demo-repository/actions/workflows/proof-html.yml/badge.svg)
+A safe **playground and showcase** for BlackRoad OS patterns. This repository runs a miniature operator, example agents, and a CLI so you can experiment without touching production systems or real data.
 
-# Welcome to your organization's demo respository
-This code repository (or "repo") is designed to demonstrate the best GitHub has to offer with the least amount of noise.
+## Quick start
 
-The repo includes an `index.html` file (so it can render a web page), two GitHub Actions workflows, and a CSS stylesheet dependency.
+```bash
+npm install
+npm run demo
+```
+
+Type `help` inside the CLI for available commands:
+
+- `echo <message>`
+- `inc`
+- `tx in|out <amount>`
+- `fact <key> <true|false>`
+- `summary`
+- `journal`
+
+## What this demo includes
+
+- **Mini operator**: In-memory event bus and journal inspired by the real BlackRoad OS operator.
+- **Demo agents**: Echo, counter, finance, and contradiction detectors.
+- **Examples**: Sample events and finance scenarios in `examples/` and `config/demo-config.json` for reference.
+
+## Docs
+
+- [Overview](docs/overview.md)
+- [Adding an agent](docs/adding-an-agent.md)
+- [Demo scenarios](docs/demo-scenarios.md)
+
+## Safety notice
+
+This repo is for demonstrations only. It contains no real secrets or production integrations. Journals and state live only in memory while the process is running.
+
+## Future TODOs
+
+- Minimal web UI for showing event streams.
+- Dockerfile for quick spin-up.
+- Optional integration with the real `blackroad-os-operator` backend once available.
