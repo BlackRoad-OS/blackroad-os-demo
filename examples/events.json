@@ -1,0 +1,16 @@
+[
+  {
+    "id": "evt-1",
+    "type": "demo.echo",
+    "source": "example",
+    "timestamp": "2025-01-01T00:00:00Z",
+    "payload": { "message": "Hello from example!" }
+  },
+  {
+    "id": "evt-2",
+    "type": "finance.transaction",
+    "source": "example",
+    "timestamp": "2025-01-01T00:00:01Z",
+    "payload": { "type": "in", "amount": 1000 }
+  }
+]

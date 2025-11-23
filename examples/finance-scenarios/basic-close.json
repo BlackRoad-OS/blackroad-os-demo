@@ -1,0 +1,11 @@
+{
+  "name": "basic-close",
+  "description": "Toy finance close with a few transactions",
+  "events": [
+    { "type": "finance.transaction", "payload": { "type": "in", "amount": 500 } },
+    { "type": "finance.transaction", "payload": { "type": "out", "amount": 150 } },
+    { "type": "finance.transaction", "payload": { "type": "out", "amount": 50 } },
+    { "type": "finance.transaction", "payload": { "type": "in", "amount": 200 } }
+  ],
+  "expectedFinalCashBalance": 500
+}
