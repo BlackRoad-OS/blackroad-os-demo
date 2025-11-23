@@ -6,9 +6,22 @@
     "demo": "ts-node src/cli/runDemo.ts",
     "dev:demo": "ts-node src/cli/runDemo.ts",
     "test": "jest"
+  "name": "demo-repo",
+  "version": "0.2.0",
+  "description": "A sample package.json",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
-    "@primer/css": "17.0.1"
+    "@primer/css": "17.0.1",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
   },
   "scripts": {
     "start": "node server.js",
