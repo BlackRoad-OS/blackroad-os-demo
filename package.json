@@ -8,6 +8,7 @@
   "scripts": {
     "start": "node server.js",
     "demo": "node demo.js"
+    "start": "node server.js"
   },
   "license": "MIT"
 }
