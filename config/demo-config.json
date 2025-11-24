@@ -1,7 +1,0 @@
-{
-  "description": "Local demo configuration for BlackRoad OS Demo",
-  "defaultAgents": ["echo", "counter", "demo.finance", "contradiction"],
-  "logging": {
-    "level": "debug"
-  }
-}

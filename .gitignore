@@ -1,6 +1,12 @@
 node_modules
 npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 .DS_Store
-npm-debug.log
-.DS_Store
+.next
+out
 dist
+.env*
+playwright-report
+coverage
