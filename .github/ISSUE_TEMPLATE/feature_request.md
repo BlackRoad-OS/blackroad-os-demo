@@ -1,26 +1,26 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+name: Feature Request
+about: Propose a new feature or capability
+title: "[Feature] "
+labels: type:feature, status:backlog
 assignees: ''
-
 ---
 
-**Title**
-Provide a concise title for your feature request.
+## Summary
+<!-- One-sentence description of the feature -->
 
-**Description**
-Describe the feature you are proposing.
+## Problem / Motivation
+<!-- What problem does this solve? Why do we need it? -->
 
-**Reproduction Steps**
-Steps to demonstrate how the feature would be used or how the current issue arises:
-1. ...
-2. ...
-3. ...
+## Proposed Solution
+<!-- How should this work? Be specific. -->
 
-**Expected Behaviour**
-Describe what you expect to happen once the feature is implemented.
+## Alternatives Considered
+<!-- What other approaches did you consider? Why not those? -->
 
-**Additional Context**
-Add any other context or screenshots that might help.
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Additional Context
+<!-- Screenshots, links, related issues -->
