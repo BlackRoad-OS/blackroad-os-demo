@@ -1,26 +1,33 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+name: Bug Report
+about: Report something that isn't working correctly
+title: "[Bug] "
+labels: type:bug, status:backlog
 assignees: ''
-
 ---
 
-**Title**
-Provide a concise title for your bug.
+## Summary
+<!-- One-sentence description of the bug -->
 
-**Description**
-Describe the bug in detail.
+## Steps to Reproduce
+1. Go to '...'
+2. Click on '...'
+3. See error
 
-**Reproduction Steps**
-Steps to reproduce the behavior:
-1. ...
-2. ...
-3. ...
+## Expected Behavior
+<!-- What should happen? -->
 
-**Expected Behaviour**
-Describe what you expected to happen.
+## Actual Behavior
+<!-- What actually happens? -->
 
-**Additional Context**
-Add any other context or screenshots that might help.
+## Environment
+- Service/Repo:
+- Environment: (local / staging / prod)
+- Browser/Client: (if applicable)
+- OS:
+
+## Logs / Screenshots
+<!-- Paste relevant logs or attach screenshots -->
+
+## Possible Fix
+<!-- If you have ideas on how to fix this -->

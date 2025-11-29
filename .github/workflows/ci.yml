@@ -2,26 +2,39 @@ name: CI
 
 on:
   push:
-    branches: [work]
+    branches: [main]
   pull_request:
-    branches: [work]
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  lint-test-build:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'pnpm'
-      - name: Enable corepack
-        run: corepack enable
+          node-version: '20'
+          cache: 'npm'
+
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: npm ci
+
       - name: Lint
-        run: pnpm lint
-      - name: Test
-        run: pnpm test
+        run: npm run lint --if-present
+
+      - name: Type check
+        run: npm run type-check --if-present
+
       - name: Build
-        run: pnpm build
+        run: npm run build --if-present
+
+      - name: Test
+        run: npm test --if-present
