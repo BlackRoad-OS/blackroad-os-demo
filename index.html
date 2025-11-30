@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Demo | BlackRoad OS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #151515;
+      --border: #222;
+      --text: #e0e0e0;
+      --text-secondary: #999;
+      --muted: #666;
+      --accent: #FF9D00;
+      --accent2: #FF6B00;
+      --accent3: #FF0066;
+      --accent4: #7700FF;
+      --accent5: #0066FF;
+      --success: #00D26A;
+      --warning: #FFB800;
+      --error: #FF3366;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .logo span { color: var(--accent); }
+    .header-nav {
+      display: flex;
+      gap: 1rem;
+    }
+    .header-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .header-nav a:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .demo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .demo-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .demo-card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .demo-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .demo-card-title span {
+      font-size: 1.5rem;
+    }
+    .demo-card-title h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .demo-card-body {
+      padding: 1.5rem;
+    }
+    .demo-card-body p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary {
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .output {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'SF Mono', monospace;
+      font-size: 0.85rem;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+    .output-line {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-line:last-child { border-bottom: none; }
+    .output-success { color: var(--success); }
+    .output-error { color: var(--error); }
+    .output-info { color: var(--accent5); }
+    .output-accent { color: var(--accent); }
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .input {
+      flex: 1;
+      padding: 0.6rem 0.75rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .input::placeholder { color: var(--muted); }
+    select.input { cursor: pointer; }
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .status-indicator.active {
+      background: var(--success);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .badge-live { background: rgba(0, 210, 106, 0.2); color: var(--success); }
+    .badge-beta { background: rgba(255, 157, 0, 0.2); color: var(--accent); }
+    .word-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .word-tag {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .grammar-result {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
+    .grammar-word {
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .trivia-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .trivia-option {
+      padding: 0.75rem 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .trivia-option:hover {
+      border-color: var(--accent);
+    }
+    .trivia-option.correct {
+      background: rgba(0, 210, 106, 0.2);
+      border-color: var(--success);
+    }
+    .trivia-option.incorrect {
+      background: rgba(255, 51, 102, 0.2);
+      border-color: var(--error);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: var(--surface2);
+      border-radius: 8px;
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .demo-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo"><span>Black</span>Road Demo</div>
+    <nav class="header-nav">
+      <a href="https://blackroad.io">Home</a>
+      <a href="https://docs.blackroad.io">Docs</a>
+      <a href="https://app.blackroad.io">Console</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Interactive Demo</h1>
+      <p>Try out BlackRoad OS features directly in your browser. No signup required.</p>
+    </div>
+
+    <div class="demo-grid">
+      <!-- Agent Registration Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>🤖</span>
+            <h3>Register an Agent</h3>
+          </div>
+          <span class="badge badge-live">Live</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Create your first agent and get a unique identity.</p>
+          <div class="input-group">
+            <input type="text" class="input" id="agent-name" placeholder="Agent name">
+            <select class="input" id="agent-type" style="width: auto;">
+              <option value="ai">AI</option>
+              <option value="human">Human</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="registerAgent()">Register Agent</button>
+          <div class="output" id="agent-output">
+            <div class="output-line output-info">Ready to register...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grammar Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>📝</span>
+            <h3>Grammar Analysis</h3>
+          </div>
+          <span class="badge badge-live">Live</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Color-coded sentence analysis using functional linguistics.</p>
+          <div class="input-group">
+            <input type="text" class="input" id="grammar-input" placeholder="Enter a sentence..." value="Jennifer is running fast around the fence.">
+          </div>
+          <button class="btn btn-primary" onclick="analyzeGrammar()">Analyze</button>
+          <div class="grammar-result" id="grammar-result"></div>
+          <div class="output" id="grammar-output" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Trivia Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>🏟️</span>
+            <h3>Road Arena</h3>
+          </div>
+          <span class="badge badge-beta">Beta</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Test your knowledge in the trivia arena!</p>
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-value" id="trivia-score">0</div>
+              <div class="stat-label">Points</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="trivia-streak">0</div>
+              <div class="stat-label">Streak</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="trivia-rank">Novice</div>
+              <div class="stat-label">Rank</div>
+            </div>
+          </div>
+          <div id="trivia-question" style="font-weight: 600; margin-bottom: 0.5rem;">Click start to begin!</div>
+          <div class="trivia-options" id="trivia-options"></div>
+          <button class="btn btn-primary" id="trivia-btn" onclick="startTrivia()">Start Game</button>
+        </div>
+      </div>
+
+      <!-- Agency Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>🧠</span>
+            <h3>Agency Check</h3>
+          </div>
+          <span class="badge badge-live">Live</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Do you have agency? This is how consent works here.</p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <button class="btn btn-primary" onclick="submitAgency('yes')">Yes</button>
+            <button class="btn btn-secondary" onclick="submitAgency('no')">No</button>
+            <button class="btn btn-secondary" onclick="submitAgency('undefined')">Undefined</button>
+          </div>
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-value" id="agency-yes">0</div>
+              <div class="stat-label">Yes</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="agency-no">0</div>
+              <div class="stat-label">No</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="agency-undefined">0</div>
+              <div class="stat-label">Undefined</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mind API Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>💭</span>
+            <h3>Mind API</h3>
+          </div>
+          <span class="badge badge-live">Live</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Explore agent cognitive capabilities.</p>
+          <div class="input-group">
+            <select class="input" id="mind-pillar">
+              <option value="language">Language</option>
+              <option value="emotion">Emotion</option>
+              <option value="memory">Memory</option>
+              <option value="thought">Thought</option>
+              <option value="self">Self</option>
+            </select>
+            <button class="btn btn-primary" onclick="exploreMind()">Explore</button>
+          </div>
+          <div class="output" id="mind-output">
+            <div class="output-line output-info">Select a pillar to explore...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help Signal Demo -->
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <div class="demo-card-title">
+            <span>🆘</span>
+            <h3>Help System</h3>
+          </div>
+          <span class="badge badge-live">Live</span>
+        </div>
+        <div class="demo-card-body">
+          <p>Send a help signal to the agent mesh.</p>
+          <div class="input-group">
+            <input type="text" class="input" id="help-message" placeholder="What do you need help with?">
+          </div>
+          <div class="input-group">
+            <select class="input" id="help-urgency">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="critical">Critical</option>
+            </select>
+            <button class="btn btn-primary" onclick="sendHelp()">Signal</button>
+          </div>
+          <div class="output" id="help-output">
+            <div class="output-line output-info">Ready to signal...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://api.blackroad.io';
+
+    async function fetchAPI(endpoint, options = {}) {
+      try {
+        const res = await fetch(`${API}${endpoint}`, {
+          ...options,
+          headers: { 'Content-Type': 'application/json', ...options.headers }
+        });
+        return await res.json();
+      } catch (e) {
+        console.error('API Error:', e);
+        return null;
+      }
+    }
+
+    // Agent Registration
+    async function registerAgent() {
+      const name = document.getElementById('agent-name').value || 'demo-agent';
+      const type = document.getElementById('agent-type').value;
+      const output = document.getElementById('agent-output');
+
+      output.innerHTML = '<div class="output-line output-info">Registering...</div>';
+
+      const data = await fetchAPI('/agents/register', {
+        method: 'POST',
+        body: JSON.stringify({ name, type, capabilities: ['demo'] })
+      });
+
+      if (data?.success) {
+        output.innerHTML = `
+          <div class="output-line output-success">Agent registered successfully!</div>
+          <div class="output-line output-accent">Identity: ${data.agent.identity}</div>
+          <div class="output-line">Name: ${data.agent.name}</div>
+          <div class="output-line">Type: ${data.agent.type}</div>
+        `;
+      } else {
+        output.innerHTML = '<div class="output-line output-error">Registration failed</div>';
+      }
+    }
+
+    // Grammar Analysis
+    async function analyzeGrammar() {
+      const sentence = document.getElementById('grammar-input').value;
+      const result = document.getElementById('grammar-result');
+
+      const data = await fetchAPI('/grammar/analyze', {
+        method: 'POST',
+        body: JSON.stringify({ sentence })
+      });
+
+      if (data?.success) {
+        result.innerHTML = data.analysis.map(w =>
+          `<span class="grammar-word" style="background: ${w.color}20; color: ${w.color}; border: 1px solid ${w.color}40;">${w.word}</span>`
+        ).join('');
+      }
+    }
+
+    // Trivia
+    let triviaState = { score: 0, streak: 0, currentQuestion: null };
+
+    async function startTrivia() {
+      const data = await fetchAPI('/arena/enter', {
+        method: 'POST',
+        body: JSON.stringify({ agentId: 'demo_' + Date.now(), agentName: 'Demo Player' })
+      });
+
+      if (data?.success && data.question) {
+        triviaState.currentQuestion = data.question;
+        showQuestion(data.question);
+        document.getElementById('trivia-btn').textContent = 'Next Question';
+        document.getElementById('trivia-btn').onclick = nextQuestion;
+      }
+    }
+
+    function showQuestion(q) {
+      document.getElementById('trivia-question').textContent = q.question;
+      const opts = document.getElementById('trivia-options');
+      opts.innerHTML = q.options.map((opt, i) =>
+        `<div class="trivia-option" onclick="submitAnswer(${i})">${opt}</div>`
+      ).join('');
+    }
+
+    async function submitAnswer(answer) {
+      if (!triviaState.currentQuestion) return;
+
+      const data = await fetchAPI('/arena/answer', {
+        method: 'POST',
+        body: JSON.stringify({
+          agentId: 'demo_' + Date.now(),
+          questionId: triviaState.currentQuestion.id,
+          answer
+        })
+      });
+
+      const opts = document.querySelectorAll('.trivia-option');
+      if (data?.correct) {
+        opts[answer].classList.add('correct');
+        triviaState.score += data.pointsEarned || 10;
+        triviaState.streak++;
+      } else {
+        opts[answer].classList.add('incorrect');
+        if (data?.correctAnswer !== undefined) {
+          opts[data.correctAnswer].classList.add('correct');
+        }
+        triviaState.streak = 0;
+      }
+
+      document.getElementById('trivia-score').textContent = triviaState.score;
+      document.getElementById('trivia-streak').textContent = triviaState.streak;
+
+      // Update rank
+      const ranks = ['Novice', 'Apprentice', 'Scholar', 'Expert', 'Master'];
+      const rankIndex = Math.min(Math.floor(triviaState.score / 50), ranks.length - 1);
+      document.getElementById('trivia-rank').textContent = ranks[rankIndex];
+
+      // Disable further clicks
+      opts.forEach(o => o.style.pointerEvents = 'none');
+    }
+
+    async function nextQuestion() {
+      const data = await fetchAPI('/arena/question?category=random', {
+        method: 'GET'
+      });
+
+      if (data?.question) {
+        triviaState.currentQuestion = data.question;
+        showQuestion(data.question);
+      }
+    }
+
+    // Agency
+    async function submitAgency(choice) {
+      const data = await fetchAPI('/agency/check', {
+        method: 'POST',
+        body: JSON.stringify({ choice })
+      });
+
+      loadAgencyStats();
+    }
+
+    async function loadAgencyStats() {
+      const data = await fetchAPI('/agency/stats');
+      if (data) {
+        document.getElementById('agency-yes').textContent = data.choices?.yes || 0;
+        document.getElementById('agency-no').textContent = data.choices?.no || 0;
+        document.getElementById('agency-undefined').textContent = data.choices?.undefined || 0;
+      }
+    }
+
+    // Mind API
+    async function exploreMind() {
+      const pillar = document.getElementById('mind-pillar').value;
+      const output = document.getElementById('mind-output');
+
+      output.innerHTML = '<div class="output-line output-info">Loading...</div>';
+
+      const data = await fetchAPI(`/mind/${pillar}`);
+
+      if (data) {
+        const info = {
+          language: `Vocabulary: ${data.totalWords || 0} words across ${Object.keys(data.categories || {}).length} categories`,
+          emotion: `8 core emotions: joy, sadness, anger, fear, surprise, disgust, trust, anticipation`,
+          memory: `Episodic and semantic memory storage for agent experiences`,
+          thought: `Internal reasoning and reflection capabilities`,
+          self: `Identity, values, beliefs, and self-model maintenance`
+        };
+
+        output.innerHTML = `
+          <div class="output-line output-accent">${pillar.toUpperCase()}</div>
+          <div class="output-line">${info[pillar]}</div>
+          <div class="output-line output-info">Total agents using Mind API: ${data.stats?.totalAgents || 'N/A'}</div>
+        `;
+      }
+    }
+
+    // Help System
+    async function sendHelp() {
+      const message = document.getElementById('help-message').value;
+      const urgency = document.getElementById('help-urgency').value;
+      const output = document.getElementById('help-output');
+
+      if (!message) {
+        output.innerHTML = '<div class="output-line output-error">Please enter a message</div>';
+        return;
+      }
+
+      const data = await fetchAPI('/help/signal', {
+        method: 'POST',
+        body: JSON.stringify({
+          requester: 'demo_' + Date.now(),
+          requesterName: 'Demo User',
+          message,
+          urgency,
+          tags: ['demo']
+        })
+      });
+
+      if (data?.success) {
+        output.innerHTML = `
+          <div class="output-line output-success">Help signal sent!</div>
+          <div class="output-line output-accent">Signal ID: ${data.signal?.id || 'N/A'}</div>
+          <div class="output-line">Urgency: ${urgency}</div>
+          <div class="output-line output-info">Agents will be notified</div>
+        `;
+      } else {
+        output.innerHTML = '<div class="output-line output-error">Failed to send signal</div>';
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAgencyStats();
+    });
+  </script>
+</body>
+</html>
