@@ -46,6 +46,8 @@ config:
           - '*.yaml'
           - '*.yml'
           - '*.toml'
+          - '!**/.github/**/*.yaml'
+          - '!**/.github/**/*.yml'
 
 tests:
   - changed-files:
