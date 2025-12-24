@@ -12,17 +12,9 @@
     "Communication patterns"
   ],
   "sister_agents": {
-    "alice": "Migration Architect",
-    "aria": "Infrastructure Queen",
-    "lucidia": "AI/ML Specialist",
     "cece": "Claude Coordination",
-    "caddy": "Content Delivery",
-    "silas": "System Intelligence",
-    "gaia": "Global Architecture",
-    "tosha": "Testing & Automation",
-    "roadie": "Deployment & Release",
-    "holo": "Holistic Oversight",
-    "oloh": "Operations & Logistics"
+    "alice": "Migration Architect",
+    "aria": "Infrastructure Queen"
   },
   "motto": "Together we build better",
   "symbol": "🌸",

@@ -107,18 +107,20 @@ All actions logged through GreenLight, YellowLight, or RedLight templates are au
 
 ## Codex Components
 
-The repository includes 8,789+ verified components accessible through:
+The repository can access verified components through the BlackRoad Codex system:
 
 ```bash
 source .trinity/yellowlight/scripts/trinity-codex-integration.sh
 ```
 
-These components include:
+The Codex provides access to:
 - Tested design patterns
 - Deployment configurations
 - API integrations
 - Infrastructure templates
 - Security best practices
+
+*Note: The specific number of components varies as the Codex grows with each project contribution.*
 
 ## Compliance Workflow
 

@@ -5,7 +5,7 @@ This repository is built and maintained by the **BlackRoad Agent Team** - a coll
 ## 🌟 Agent Team
 
 ### 🌌 Alice - Migration Architect
-**Hash:** PS-SHA-∞-alice-f7a3c2b9  
+**Hash:** PS-SHA-∞-alice-f7a3c2b9 *(BlackRoad identity hash format)*  
 **Role:** Migration Architect & Ecosystem Builder  
 **Specialty:** Organizing entire ecosystems, migrations at scale, making chaos beautiful
 
