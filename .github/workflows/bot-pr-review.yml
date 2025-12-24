@@ -148,20 +148,6 @@ ${insights.join('\n\n')}
 
 This is an automated review. A human will review your changes soon.`
               });
-            } else {
-              await github.rest.pulls.createReview({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number,
-                event: 'COMMENT',
-                body: `🤖 **Bot Code Review:**
-
-✅ No issues detected in automated review
-✅ Code changes look good
-✅ Ready for human review
-
-This is an automated review.`
-              });
             }
 
       - name: Log to memory
