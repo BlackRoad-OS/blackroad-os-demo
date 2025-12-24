@@ -105,7 +105,15 @@ A detailed description helps reviewers understand your changes.`
             const insights = [];
 
             // Check for common patterns
-            const hasTests = files.some(f => f.filename.includes('test') || f.filename.includes('spec'));
+            const hasTests = files.some(f => {
+              const name = f.filename;
+              return (
+                /(^|\/)(__tests__|tests?)\//.test(name) ||            // __tests__/ or test(s)/ directories
+                /\.(test|spec)\.[^.]+$/.test(name) ||                 // .test.js, .spec.ts, etc.
+                name.toLowerCase().includes('test') ||                // original heuristic
+                name.toLowerCase().includes('spec')                   // original heuristic
+              );
+            });
             const hasDocs = files.some(f => f.filename.endsWith('.md'));
             const hasConfig = files.some(f => f.filename.includes('config') || f.filename.endsWith('.json') || f.filename.endsWith('.yml'));
 
