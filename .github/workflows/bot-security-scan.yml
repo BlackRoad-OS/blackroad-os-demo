@@ -122,13 +122,41 @@ cc: @${context.repo.owner}`;
               }
 
               if (outdatedWarnings.length > 0) {
-                await github.rest.issues.create({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  title: '🔒 Security: Vulnerable Dependencies Detected',
-                  body: `**Vulnerable dependencies found:**\n\n${outdatedWarnings.join('\n')}\n\nPlease update to secure versions.`,
-                  labels: ['security', 'dependencies']
+                const owner = context.repo.owner;
+                const repo = context.repo.repo;
+                const issueTitle = '🔒 Security: Vulnerable Dependencies Detected';
+
+                // Check for an existing open security/dependencies issue with the same title
+                const { data: existingIssues } = await github.rest.issues.listForRepo({
+                  owner,
+                  repo,
+                  state: 'open',
+                  labels: 'security,dependencies',
+                  per_page: 100
                 });
+
+                const existingIssue = existingIssues.find(issue => issue.title === issueTitle);
+
+                const issueBody = `**Vulnerable dependencies found:**\n\n${outdatedWarnings.join('\n')}\n\nPlease update to secure versions.`;
+
+                if (existingIssue) {
+                  // Update existing issue with a new comment instead of creating a duplicate
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: existingIssue.number,
+                    body: issueBody
+                  });
+                } else {
+                  // Create a new issue if none exists
+                  await github.rest.issues.create({
+                    owner,
+                    repo,
+                    title: issueTitle,
+                    body: issueBody,
+                    labels: ['security', 'dependencies']
+                  });
+                }
               }
             }
 
