@@ -62,9 +62,9 @@ jobs:
             // Detect version bump type from commits
             let bumpType = 'patch';
 
-            if (commits.match(/BREAKING CHANGE|!:/)) {
+            if (commits.match(/^(BREAKING CHANGE|.*!:)/m)) {
               bumpType = 'major';
-            } else if (commits.match(/^feat:|^feature:/m)) {
+            } else if (commits.match(/^(feat:|feature:)/m)) {
               bumpType = 'minor';
             }
 
