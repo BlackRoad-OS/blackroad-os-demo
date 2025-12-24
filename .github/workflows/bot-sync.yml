@@ -192,8 +192,10 @@ Safe to merge after review.`,
               console.log('✅ Everything already in sync');
             }
 
-      - name: Log to memory
+      - name: Log to memory (optional, uses external ~/memory-system.sh if available)
         run: |
           if [ -f ~/memory-system.sh ]; then
             ~/memory-system.sh log bot-action "workflow-sync" "Synced workflows for ${{ github.repository }}"
+          else
+            echo "memory-system.sh not found; skipping optional memory logging for ${{ github.repository }}"
           fi
