@@ -111,12 +111,12 @@ cc: @${context.repo.owner}`;
 
               const outdatedWarnings = [];
 
-              // Known vulnerable package patterns (simplified)
-              const knownVulnerable = ['event-stream@3.3.6', 'lodash@<4.17.21'];
+              // Known vulnerable package versions (exact matches)
+              const knownVulnerable = ['event-stream@3.3.6'];
 
               for (const [name, version] of Object.entries(deps)) {
                 const fullDep = `${name}@${version}`;
-                if (knownVulnerable.some(v => fullDep.includes(v))) {
+                if (knownVulnerable.some(v => fullDep === v)) {
                   outdatedWarnings.push(`⚠️ ${name}@${version} has known vulnerabilities`);
                 }
               }
