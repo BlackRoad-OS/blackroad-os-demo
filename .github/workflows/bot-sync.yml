@@ -56,13 +56,21 @@ jobs:
               } catch (err) {
                 if (err.status === 422) {
                   // Label exists, update it
-                  await github.rest.issues.updateLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    name: label.name,
-                    color: label.color,
-                    description: label.description
-                  });
+                  try {
+                    await github.rest.issues.updateLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: label.name,
+                      color: label.color,
+                      description: label.description
+                    });
+                  } catch (updateErr) {
+                    console.error(`Failed to update label "${label.name}":`, updateErr);
+                    throw updateErr;
+                  }
+                } else {
+                  console.error(`Failed to create label "${label.name}":`, err);
+                  throw err;
                 }
               }
             }
